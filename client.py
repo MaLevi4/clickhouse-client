@@ -24,7 +24,7 @@ class ClickHouseClient:
         url = urlparse(url)
         self.scheme = url.scheme
         self.netloc = url.netloc
-        self.options = dict([(key,str(val[0])) for key, val in parse_qs(url.query).iteritems()])
+        self.options = dict([(key,str(val[0])) for key, val in parse_qs(url.query).items()])
         self.options.update(options)
         self.on_progress = on_progress
 
@@ -76,8 +76,8 @@ class ClickHouseClient:
         from copy import deepcopy
         options = deepcopy(self.options)    #get copy of self.options
         options.update(opts)                #and override with opts
-        options = dict([(key,val) for key, val in options.iteritems() if val is not None]) #remove keys with None values
-        urlquery = '&'.join(['{}={}'.format(key,val) for key,val in options.iteritems()])
+        options = dict([(key,val) for key, val in options.items() if val is not None]) #remove keys with None values
+        urlquery = '&'.join(['{}={}'.format(key,val) for key,val in options.items()])
         url = '{self.scheme}://{self.netloc}/?{urlquery}'.format(self=self,urlquery=urlquery)
         logging.debug('url={url}'.format(url=url))
         return url
